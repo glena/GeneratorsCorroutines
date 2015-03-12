@@ -1,5 +1,6 @@
 <?php
 
+// Just a silly iterable collection with some methods to make my life easier
 class GeneratorsCollection implements IterableCollection {
 	
 	protected $key = 0;

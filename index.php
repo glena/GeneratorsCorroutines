@@ -48,7 +48,7 @@ function printThings() {
 
 function init() {
 
-	// Concurrent
+	// Run this Concurrent processes 
 	yield [
 	
 		countTenMore(100, function(){ return countTenMore(400); }),
@@ -57,9 +57,10 @@ function init() {
 	
 	];
 	
+	// This will not run until the last batch has finished. 
 	yield function() { printThings(); };
 
-	// Concurrent
+	// This will run concurrently
 	yield [
 
 		doAnotherThing(10, function(){ return countTenMore(700); }),
@@ -70,6 +71,12 @@ function init() {
 
 }
 
+
+// Initialize the orchestator
 $runner = new Runner(new GeneratorsCollection(), new ResponseAnalizer());
+
+// attach the main process
 $runner->attach(init());
+
+// ¡RUN!
 $runner->run();
